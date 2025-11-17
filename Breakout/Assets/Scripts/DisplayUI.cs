@@ -7,6 +7,6 @@ public class DisplayUI : MonoBehaviour
     private TextMeshProUGUI _text;
     void Update()
     {
-        _text.SetText(GameManager.instance.Score.ToString());
+        _text.SetText("SCORE: " + GameManager.instance.Score.ToString());
     }
 }
