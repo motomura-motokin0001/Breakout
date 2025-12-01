@@ -33,7 +33,12 @@ public class GameStartUI : MonoBehaviour
     {
         _TargetObject.transform.DOLocalMove(_MovePos,1f).OnComplete(() =>
         {
-            _TargetText.DOCounter(3,0,Time.deltaTime,true);
+            _TargetText.DOCounter(3,0,4,true).OnComplete(() =>
+            {
+                
+                Destroy(_TargetObject);
+                GameManager.instance.Status = GameStatus.Play;
+            });
         });
     }
 }

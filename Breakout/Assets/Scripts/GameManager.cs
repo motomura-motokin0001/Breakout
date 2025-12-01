@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 
+
 public enum GameStatus
 {
     None,
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public int Score;
     public int AddScore;
+    public int BlockCount;
 
     private void Awake()
     {
@@ -44,5 +46,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    void Start()
+    {
+        GameManager.instance.Status = GameStatus.Title; 
     }
 }

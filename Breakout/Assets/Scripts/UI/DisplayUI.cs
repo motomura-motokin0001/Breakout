@@ -1,12 +1,27 @@
 using TMPro;
 using UnityEngine;
+using BrickBreaker.Event;
 
-public class DisplayUI : MonoBehaviour
+namespace BrickBreaker.UI
 {
-    [SerializeField]
-    private TextMeshProUGUI _text;
-    void Update()
+    public class DisplayUI : MonoBehaviour
     {
-        _text.SetText("SCORE: " + GameManager.instance.Score.ToString());
+        [SerializeField]
+        private TextMeshProUGUI _SCORE_text;
+
+        private void OnEnable()
+        {
+            EventService.UpdateScore += Display_Score;
+        }
+
+        private void OnDisable()
+        {
+            EventService.UpdateScore -= Display_Score;
+        }
+
+        public void Display_Score(int score)
+        {
+            _SCORE_text.SetText(score.ToString());
+        }
     }
 }

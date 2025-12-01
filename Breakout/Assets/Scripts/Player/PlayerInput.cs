@@ -20,7 +20,9 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        // オブジェクト移動
-        _rb.linearVelocity = _velocity * _speed;
+        if(GameManager.instance.Status == GameStatus.Play)
+        {
+            _rb.linearVelocity = _velocity * _speed;
+        }
     }
 }
