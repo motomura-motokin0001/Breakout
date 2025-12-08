@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using BrickBreaker.Event;
 
 public class GameStartUI : MonoBehaviour
 {
@@ -35,9 +36,9 @@ public class GameStartUI : MonoBehaviour
         {
             _TargetText.DOCounter(3,0,4,true).OnComplete(() =>
             {
-                
+                EventService.StateChanged?.Invoke(GameStatus.Play);
                 Destroy(_TargetObject);
-                GameManager.instance.Status = GameStatus.Play;
+                
             });
         });
     }

@@ -1,3 +1,4 @@
+using BrickBreaker.Event;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -29,12 +30,12 @@ public class Ball : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.StateChanged += OnStateChanged;
+        EventService.StateChanged += OnStateChanged;
     }
 
     private void OnDisable()
     {
-        GameManager.StateChanged -= OnStateChanged;
+        EventService.StateChanged -= OnStateChanged;
     }
 
     private void OnStateChanged(GameStatus status)

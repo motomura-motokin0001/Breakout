@@ -13,6 +13,7 @@ namespace BrickBreaker.Block
             {
                 EventService.AddScore(DefaultScore);
                 Destroy(this.gameObject);
+                EventService.OnBlockDestroyed?.Invoke();
             }
         }
     }

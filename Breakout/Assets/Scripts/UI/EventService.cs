@@ -10,6 +10,11 @@ namespace BrickBreaker.Event
         {
             AddScoreEvent?.Invoke(NewScore);
         }
+        public static Action<GameStatus> StateChanged;
+        public static Action OnBlockDestroyed;//ブロック破壊イベント発火
+        public static Action GameClear;
+        public static Action GameOver;
+
     }
 }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using BrickBreaker.Event;
 
 
 public enum GameStatus
@@ -15,25 +16,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public static event Action<GameStatus> StateChanged;
+    public GameStatus status;
 
-    private GameStatus _status;
-    public GameStatus Status
+    public string Status
     {
-        get => _status;
-        set
-        {
-            if (_status == value) return;
-
-            _status = value;
-
-            StateChanged?.Invoke(_status);
-        }
+        get { return status.ToString(); }
     }
-
-    public int Score;
-    public int AddScore;
-    public int BlockCount;
 
     private void Awake()
     {
@@ -49,6 +37,41 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        GameManager.instance.Status = GameStatus.Title; 
+        GameManager.instance.status = GameStatus.Title; 
     }
+
+
+
+    private void OnEnable()
+    {
+        BrickBreaker.Event.EventService.GameClear += OnGameClear;
+        BrickBreaker.Event.EventService.GameOver += OnGameOver;
+        BrickBreaker.Event.EventService.StateChanged += OnstatusChanged;
+    }
+
+    private void OnDisable()
+    {
+        BrickBreaker.Event.EventService.GameClear -= OnGameClear;
+        BrickBreaker.Event.EventService.GameOver -= OnGameOver;
+        BrickBreaker.Event.EventService.StateChanged -= OnstatusChanged;
+    }
+
+    void OnGameClear()
+    {
+        GameManager.instance.status = GameStatus.GameClear;
+        BrickBreaker.Event.EventService.StateChanged?.Invoke(GameStatus.GameClear);
+    }
+
+    void OnGameOver()
+    {
+        GameManager.instance.status = GameStatus.GameOver;
+        BrickBreaker.Event.EventService.StateChanged?.Invoke(GameStatus.GameOver);
+    }
+
+    void OnstatusChanged(GameStatus status)
+    {
+        GameManager.instance.status = status;
+    }
+
+
 }

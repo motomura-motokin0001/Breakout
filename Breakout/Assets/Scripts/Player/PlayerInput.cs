@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.instance.Status == GameStatus.Play)
+        if(GameManager.instance.status == GameStatus.Play)
         {
             _rb.linearVelocity = _velocity * _speed;
         }
